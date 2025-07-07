@@ -29,6 +29,9 @@ resource "azurerm_app_service" "app_service_terraform" {
   site_config {
     dotnet_framework_version = "v4.0"
     scm_type                 = "LocalGit"
+    min_tls_version          = "1.2"
+    remote_debugging_enabled = false
+    http2_enabled            = true
   }
 
   app_settings = {
@@ -39,5 +42,9 @@ resource "azurerm_app_service" "app_service_terraform" {
     name  = "Database"
     type  = "SQLServer"
     value = "Server=some-server.mydomain.com;Integrated Security=SSPI"
+  }
+  https_only = true
+  auth_settings {
+    enabled = true
   }
 }
